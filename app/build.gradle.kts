@@ -1,9 +1,18 @@
+import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
+val localProperties = Properties()
 
+// 2. Load the local.properties file if it exists
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists() && localPropertiesFile.isFile) {
+    localPropertiesFile.inputStream().use {
+        localProperties.load(it)
+    }
+}
 android {
     namespace = "com.example.lab_week_07"
     compileSdk = 36
